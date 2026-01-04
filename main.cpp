@@ -26,7 +26,7 @@ int main()
     w.zmienDlugosc(3);
     w.zmienDlugosc(7);
 
-    std::cout << "test" << "\n";
+    std::cout << "test w" << "\n";
     std::cout << w[0] << "\n";
     std::cout << w[1] << "\n";
     std::cout << w[2] << "\n";
@@ -39,8 +39,22 @@ int main()
 
     w2 = w; 
 
+    Wektor w3{std::move(w2)};
 
 
+    Wektor w4{4}; 
+
+    Wektor w5{7}; 
+
+    w5 = std::move(w4);
+
+    std::cout << "test w5" << "\n";
+    std::cout << w5[0] << "\n";
+    std::cout << w5[1] << "\n";
+    std::cout << w5[2] << "\n";
+    std::cout << w5[3] << "\n";
+    std::cout << w5[4] << "\n";
+    std::cout << w5[10] << "\n";
 
   /* 
   testowanie l-value, r-value

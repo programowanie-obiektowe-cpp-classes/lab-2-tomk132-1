@@ -10,13 +10,14 @@ private:
 public:
     
     Wektor(unsigned int rozmiar);
+    Wektor(const Wektor& other);
+    Wektor& operator=(const Wektor& other);
+    Wektor(Wektor&& other) noexcept;
+    Wektor& operator=(Wektor&& other) noexcept; 
+
     ~Wektor();
 
-    Wektor& operator=(const Wektor& other);
-
-   Wektor(const Wektor& other);
-
-
+    
     unsigned int getDlugosc() const;
     unsigned int getPojemnosc() const;
 

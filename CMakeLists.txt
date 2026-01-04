@@ -16,7 +16,6 @@ add_executable(zad3 "test.cpp" "zad3.cpp")
 target_link_libraries(zad1 Lab2)
 target_link_libraries(zad2 Lab2)
 target_link_libraries(zad3 Lab2)
-
 ]]
 
 add_executable(sandbox "main.cpp" "Wektor.h" "Wektor.cpp")

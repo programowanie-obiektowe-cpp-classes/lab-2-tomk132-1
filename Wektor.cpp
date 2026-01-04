@@ -2,6 +2,7 @@
 
 #include "Wektor.h"
 #include <iostream>
+#include <print>
 
 Wektor::Wektor(unsigned int rozmiar)
     : pojemnosc{rozmiar}, dlugosc{rozmiar}, wektor_liczb{new double[rozmiar]}
@@ -13,35 +14,26 @@ Wektor::Wektor(unsigned int rozmiar)
     for (unsigned int i = 0; i < pojemnosc; i++) {
         wektor_liczb[i] = i;
     }
+
+    std::cout << "Konstruktor ZWYKŁY wykonany, dlugosc: " << dlugosc << "; Pojemność: " << pojemnosc
+              << "Wektor liczba (adres): " << wektor_liczb << std::endl;
 }
 
-Wektor::~Wektor()
-{
-    delete[] wektor_liczb;
-}
-
-unsigned int Wektor::getDlugosc() const
-{
-    return dlugosc;
-}
-unsigned int Wektor::getPojemnosc() const
-{
-    return pojemnosc;
-}
-
-Wektor::Wektor(const Wektor& other)
-    : Wektor(other.pojemnosc)
+Wektor::Wektor(const Wektor& other) : Wektor(other.pojemnosc)
 {
     for (unsigned int i = 0; i < pojemnosc; i++) {
         wektor_liczb[i] = other.wektor_liczb[i];
     }
 
+    std::cout << "Konstruktor KOPIUJĄCY wykonany, dlugosc: " << dlugosc
+              << "; Pojemność: " << pojemnosc << "Wektor liczba (adres): " << wektor_liczb
+              << std::endl;
 }
 
 Wektor& Wektor::operator=(const Wektor& other)
 {
     if (this == &other)
-        return *this; 
+        return *this;
 
     this->pojemnosc = other.pojemnosc;
     this->dlugosc   = other.dlugosc;
@@ -53,10 +45,63 @@ Wektor& Wektor::operator=(const Wektor& other)
         this->wektor_liczb[i] = other.wektor_liczb[i];
     }
 
-    std::cout << "Operator przypisania wykonany\n";
+    std::cout << "Operator PRZYPISANIA wykonany, dlugosc: " << dlugosc
+              << "; Pojemność: " << pojemnosc << "Wektor liczba (adres): " << wektor_liczb
+              << std::endl;
 
-    return *this; 
+    return *this;
+}
 
+Wektor::Wektor(Wektor&& other) noexcept
+    : pojemnosc{other.pojemnosc}, dlugosc{other.dlugosc}, wektor_liczb{other.wektor_liczb}
+{
+    other.wektor_liczb = nullptr;
+    other.dlugosc      = 0;
+    other.pojemnosc    = 0;
+
+    std::cout << "Konstruktor PRZENOSZĄCY wykonany, dlugosc: " << dlugosc
+              << "; Pojemność: " << pojemnosc << "Wektor liczba (adres): " << wektor_liczb
+              << std::endl;
+}
+
+Wektor& Wektor::operator=(Wektor&& other) noexcept
+{
+    if (this == &other) {
+        return *this;
+    };
+
+    this->pojemnosc    = std::move(other.pojemnosc);
+    this->dlugosc      = std::move(other.dlugosc);
+    this->wektor_liczb = std::move(other.wektor_liczb);
+
+    delete[] other.wektor_liczb;
+    other.wektor_liczb = nullptr;
+
+    other.pojemnosc = 0;
+    other.dlugosc   = 0;
+
+    std::cout << "PRZENOSZĄCY operator przypisania wykonany, dlugosc: " << dlugosc
+              << "; Pojemność: " << pojemnosc << "Wektor liczba (adres): " << wektor_liczb
+              << std::endl;
+
+    return *this;
+}
+
+Wektor::~Wektor()
+{
+    delete[] wektor_liczb;
+
+    std::cout << "Destruktur wykonany, dlugosc: " << dlugosc << "; Pojemność: " << pojemnosc
+              << "Wektor liczba (adres): " << wektor_liczb << std::endl;
+}
+
+unsigned int Wektor::getDlugosc() const
+{
+    return dlugosc;
+}
+unsigned int Wektor::getPojemnosc() const
+{
+    return pojemnosc;
 }
 
 
